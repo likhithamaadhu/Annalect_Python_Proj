@@ -13,9 +13,16 @@
         body{
         padding:20px;
         }
-        .data{
+
+
+        #form1,#form2{
         text-align:center;
         }
+        .row {
+   display: flex;
+   justify-content: space-around;
+}
+
     </style>
 </head>
 <body>
@@ -46,8 +53,10 @@
 </nav>
 <!--    nav bar end-->
 {% block body %}
+    <div class="row">
 <!--taking input-->
-    <div class="data">
+    <div class="col-md-4">
+        <div id="form1">
         <form action="/add" method="POST">
             <label>Add a new task:</label>
             <input type="text" name="todoitem" required><br>
@@ -55,13 +64,27 @@
             <input type="date" name="due_date" required><br>
             <button class="btn btn-success my-2 my-sm-0" type="submit"  >Add</button>
         </form>
+            </div>
     </div>
 <!--taking input end-->
-
+<!--tasks on date-->
+    <div class=class="col-md-6">
+        <div id="form2">
+    <form action="/tasks_on_date" method="post">
+<!--        <h5>Search Tasks On</h5>-->
+        <label>Due Date:</label>
+        <input type="date" name="due_date" required><br>
+        <button class="btn btn-warning my-2 my-sm-0" type="submit">Tasks on</button>
+    </form>
+            </div>
+    </div>
+</div>
+<!--tasks on date end -->
 <hr>
 
 
 <!--    display of tasks-->
+ <!--incomplete tasks table-->
     <div class="tasks">
     <h2>Tasks</h2>
 
@@ -76,7 +99,7 @@
         <th scope="col"></th>
     </tr>
     </thead>
-        <!--incomplete tasks table-->
+
     <tbody>
     {% for todo in incomplete %}
     <tr>
@@ -91,26 +114,26 @@
   </tbody>
 
 <!--        search results-->
-<tbody>
-    {% for todo in tasks_incomplete %}
-    <tr>
-        <th scope="row">{{todo.id}}</th>
-        <td>{{todo.task}}</td>
-        <td>{{todo.due_date}}</td>
-        <td><a href="{{ url_for('edit',action='complete',id=todo.id) }}">Mark as Complete</a></td>
-        <td><a href="{{ url_for('edit',action='update',id=todo.id) }}" data-toggle="modal" data-target="#myupdate{{todo.id}}">Update</a></td>
-        <td><a href="{{ url_for('edit',action='delete',id=todo.id) }}" style="color:red;" onclick="return confirm('Are you sure to delete?')">Delete</a></td>
-    </tr>
-   {% endfor %}
-  </tbody>
-        <!--        search results end-->
-        <!--incomplete tasks table end-->
+<!--<tbody>-->
+<!--    {% for todo in tasks_incomplete %}-->
+<!--    <tr>-->
+<!--        <th scope="row">{{todo.id}}</th>-->
+<!--        <td>{{todo.task}}</td>-->
+<!--        <td>{{todo.due_date}}</td>-->
+<!--        <td><a href="{{ url_for('edit',action='complete',id=todo.id) }}">Mark as Complete</a></td>-->
+<!--        <td><a href="{{ url_for('edit',action='update',id=todo.id) }}" data-toggle="modal" data-target="#myupdate{{todo.id}}">Update</a></td>-->
+<!--        <td><a href="{{ url_for('edit',action='delete',id=todo.id) }}" style="color:red;" onclick="return confirm('Are you sure to delete?')">Delete</a></td>-->
+<!--    </tr>-->
+<!--   {% endfor %}-->
+<!--  </tbody>-->
+<!--        search results end-->
     </table>
+<!--incomplete tasks table end-->
 
-        <!--completed tasks table-->
-    <h2>Completed Tasks</h2>
+<!--completed tasks table-->
+<h2>Completed Tasks</h2>
 
-            <table class="table">
+<table class="table">
   <thead class="thead-light">
     <tr>
         <th scope="col">Task</th>
@@ -118,6 +141,7 @@
         <th scope="col"></th>
     </tr>
   </thead>
+
   <tbody>
   {% for todo in complete %}
     <tr>
@@ -128,21 +152,21 @@
    {% endfor %}
   </tbody>
 
-                <tbody>
-
-    {% for todo in tasks_complete %}
-    <tr>
-        <td>{{todo.task}}</td>
-         <td><a href="{{ url_for('edit',action='move',id=todo.id) }}" onclick="return confirm('Are you sure to move to Tasks?')" >Move to Tasks</a></td>
-        <td><a href="{{ url_for('edit',action='delete',id=todo.id) }}" style="color:red;" onclick="return confirm('Are you sure to delete?')">Delete</a></td>
-    </tr>
-   {% endfor %}
-  </tbody>
+<!--<tbody>-->
+<!--    {% for todo in tasks_complete %}-->
+<!--    <tr>-->
+<!--        <td>{{todo.task}}</td>-->
+<!--         <td><a href="{{ url_for('edit',action='move',id=todo.id) }}" onclick="return confirm('Are you sure to move to Tasks?')" >Move to Tasks</a></td>-->
+<!--        <td><a href="{{ url_for('edit',action='delete',id=todo.id) }}" style="color:red;" onclick="return confirm('Are you sure to delete?')">Delete</a></td>-->
+<!--    </tr>-->
+<!--   {% endfor %}-->
+<!--  </tbody>-->
 
 </table>
 <!--        completed tasks table end-->
-    </div>
+</div>
 <!--    display of tasks end-->
+
 {% for todo in incomplete %}
     <div class="modal fade" id="myupdate{{todo.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
