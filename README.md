@@ -68,4 +68,14 @@ http://127.0.0.1:5000/
 ---------------------------------------------------------------------------------------------------------------------------------
 # App Screenshots
 
---------------------------------------------------------------------------------------------------------------------------
+- **List of tasks**
+ ![image](https://user-images.githubusercontent.com/84303726/211256727-14ced33d-900a-4fe2-8ecc-396dff477902.png)
+ 
+ - **update page**
+ ![image](https://user-images.githubusercontent.com/84303726/211256904-a1fcc00d-ef65-45d3-9de1-b21c9abb30ae.png)
+ 
+ - **search results**
+ ![image](https://user-images.githubusercontent.com/84303726/211257017-67e677f0-389e-4a0c-b547-2259a6b22df4.png)
+
+
+
