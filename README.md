@@ -44,7 +44,7 @@ So you can install this.
 ### How to run??
 
 ```
-python (file_name).py
+python app.py
 ```
 ----------------------------------------------------------------------------------------------
 # URL
