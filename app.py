@@ -95,8 +95,16 @@ def search():
         tasks_complete = Todo.query.filter(Todo.task.like('%'+search+'%')).filter(Todo.complete==True)
         tasks_incomplete = Todo.query.filter(Todo.task.like('%' + search + '%')).filter(Todo.complete == False)
 
-        return render_template('index.html', tasks_incomplete=tasks_incomplete,tasks_complete=tasks_complete)
+        return render_template('search_results.html', tasks_incomplete=tasks_incomplete,tasks_complete=tasks_complete)
 
+
+@app.route("/tasks_on_date", methods=["POST"])
+def tasks_on_date():
+    if request.method == "POST":
+        date = dparser.parse(request.form['due_date'], fuzzy=True).date()
+        tasks_date_complete = Todo.query.filter(Todo.due_date == date).filter(Todo.complete==True)
+        tasks_date_incomplete = Todo.query.filter(Todo.due_date == date).filter(Todo.complete == False)
+        return render_template("tasks_on_date.html",tasks_date_complete=tasks_date_complete,tasks_date_incomplete=tasks_date_incomplete)
 
 if __name__=='__main__':
     app.run(debug=True)
