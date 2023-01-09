@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+
+{% block body %}
+
+<h2>Tasks</h2>
+ {% if tasks_date_incomplete.count() !=0 %}
+    <table class="table">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Task</th>
+        <th scope="col">Due Date</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+
+      <tbody>
+
+    {% for todo in tasks_date_incomplete %}
+    <tr>
+        <th scope="row">{{todo.id}}</th>
+        <td>{{todo.task}}</td>
+        <td>{{todo.due_date}}</td>
+        <td><a href="{{ url_for('edit',action='complete',id=todo.id) }}">Mark as Complete</a></td>
+        <td><a href="{{ url_for('edit',action='update',id=todo.id) }}" data-toggle="modal" data-target="#myupdate{{todo.id}}">Update</a></td>
+        <td><a href="{{ url_for('edit',action='delete',id=todo.id) }}" style="color:red;" onclick="return confirm('Are you sure to delete?')">Delete</a></td>
+    </tr>
+   {% endfor %}
+
+  </tbody>
+
+<!--   tasks on date  -->
+
+    </table>
+{% else %}
+     <h6>No tasks on that day</h6>
+    {% endif %}
+ <!--incomplete tasks table end-->
+
+
+<h2>Completed Tasks</h2>
+{% if tasks_date_complete.count() !=0 %}
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Date</th>
+        <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    {% for todo in tasks_date_complete %}
+    <tr>
+        <td>{{todo.task}}</td>
+        <td>{{todo.due_date}}</td>
+        <td><a href="{{ url_for('edit',action='move',id=todo.id) }}" onclick="return confirm('Are you sure to move to Tasks?')" >Move to Tasks</a></td>
+        <td><a href="{{ url_for('edit',action='delete',id=todo.id) }}" style="color:red;" onclick="return confirm('Are you sure to delete?')">Delete</a></td>
+    </tr>
+   {% endfor %}
+
+  </tbody>
+
+<!--   tasks on date  -->
+
+</table>
+{% else %}
+    <h6>No completed tasks on that day</h6>
+    {% endif %}
+
+{% endblock %}
