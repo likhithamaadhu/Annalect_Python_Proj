@@ -8,6 +8,7 @@
 - Update a task(task and end-date)
 - Sort tasks by date
 - Search tasks
+- Search tasks based date
 
 ## Requirement
 - Python 3.8.10
